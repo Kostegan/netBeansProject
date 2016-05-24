@@ -1,0 +1,28 @@
+.mainFrame{
+	width: 400px;
+	height: 287px; 
+	border: 2px solid blue;
+}
+
+.head{
+	text-align: center;
+	font: arial;
+}
+
+.pic{
+	float: left;
+	border: 1px solid red;
+}
+
+.PP{
+	float: left;
+	width: 10px;
+	background: red;
+	margin:0px;
+}
+
+
+.table_block{
+	border: 1px solid green;
+	margin-left: -15px;
+}
