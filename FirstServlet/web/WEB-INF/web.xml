@@ -2,7 +2,11 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>SecondServlet</servlet-name>
-        <servlet-class>SecondServlet</servlet-class>
+        <servlet-class>servlet.NewSecondServlet</servlet-class>
+        <init-param>
+            <param-name>init3321</param-name>
+            <param-value>value221212</param-value>
+        </init-param>
     </servlet>
     <servlet>
         <servlet-name>NewSecondServlet</servlet-name>

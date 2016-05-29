@@ -7,8 +7,9 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author homek
  */
-@WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
-public class TestServlet extends HttpServlet {
+public class Calculation extends HttpServlet {
+    
+    private List<String> examples = new ArrayList<>();
 
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,18 +36,53 @@ public class TestServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            int numberOne = Integer.parseInt(request.getParameter("numOne"));
+            int numberTwo = Integer.parseInt(request.getParameter("numTwo"));
+            String operation = request.getParameter("operation");
+            int result = calculate(numberOne,numberTwo,operation);
+            String example = numberOne+operation+numberTwo+"="+result;
+            examples.add(example);
+            request.setAttribute("examples", examples);
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Servlet Calculation</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            List<String> temp = (ArrayList)request.getAttribute("examples");
+            for(String ex:temp){
+                out.println("<h1>"+ex+"</h1>");
+            }
             out.println("</body>");
             out.println("</html>");
         }
     }
+    
+    
+    
+    private int calculate(int numberOne, int numberTwo, String operation){
+        int result;
+        switch(operation){
+            case "+":
+                result = numberOne+numberTwo;
+                break;
+            case "-":
+                result = numberOne-numberTwo;
+                break;
+            case "*":
+                result = numberOne*numberTwo;
+                break;
+            case "/":
+                result = numberOne/numberTwo;
+                break;
+            default:
+                result = 0;
+        }
+        return result;
+    }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -7,6 +7,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,16 @@ import javax.servlet.http.HttpServletResponse;
  * @author homek
  */
 public class NewSecondServlet extends HttpServlet {
+    
+    private int count;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(config.getInitParameter("init3321"));
+    }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,8 +41,13 @@ public class NewSecondServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        count++;
+        
+        request.getSession().setAttribute("count", count);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            Enumeration en = request.getParameterNames();
+            
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -38,7 +55,11 @@ public class NewSecondServlet extends HttpServlet {
             out.println("<title>Servlet NewSecondServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewSecondServlet at " + request.getContextPath() + "</h1>");
+            while(en.hasMoreElements()){
+                String param = en.nextElement().toString();
+            out.println("<h1>Param "+param +" = "+request.getParameter(param) +"</h1>");
+            }
+            out.println("<h1>Param "+request.getAttribute("count")+"</h1>");
             out.println("</body>");
             out.println("</html>");
         }
